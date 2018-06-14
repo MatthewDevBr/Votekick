@@ -1,0 +1,18 @@
+# Language. You can create new files 'language'.yml and use it.
+file_language: "en.yml"
+
+# 1 = permission required, 0 = permission not required to use /votekick
+permission_required: 1
+permission: "votekick.start"
+permission_cant_be_kicked: "votekick.admin"
+
+# 1 = permission required, 0 = permission not required to use /vote
+vote_permission_required: 0
+vote_permission: "votekick.vote"
+
+# Vote duration in seconds
+vote_duration: 60
+vote_cooldown: 120
+
+# Percentage of players required to approve voting.
+percentage: 50

@@ -1,0 +1,36 @@
+plugin_prefix: "&7[&cVotekick&7]"
+invalid_version: "&cInvalid version, turning off. Plugin version: &e%version%&c. Version on plugin.yml: &e%yml_version%&c."
+version_not_supported: "&cThis server version is not supported! Version: &e%server_version%"
+no_permission: "&cInsufficient permissions."
+vote_no_permission: "&cInsufficient permissions."
+console: "&cYou are not a player."
+cooldown: "&cPlease, wait more &e%seconds%s &cbefore start a new vote."
+no_vote_under_progress: "&cThere is no voting under progress."
+vote_under_progress: "&cA voting is already under progress."
+already_voted: "&cYou already voted."
+cannot_vote_self: "&cYou cannot open a voting to kick yourself."
+cannot_vote_player: "&cThis player cannot be kicked."
+insufficient_players: "&7At least 4 players are required to start a vote."
+player_kicked: "&c%player% &7got kicked due to a voting!"
+player_not_kicked: "&c%player% &7cannot be kicked! Insufficient votes."
+player_not_found: "&cPlayer not found!"
+
+player_kicked_screen:
+ - ""
+ - "&cYou got kicked from server!"
+ - "&cWell, a voting kicked you."
+ - ""
+
+# "/" is not required.
+player_kicked_commands:
+ - "kick %player% %kick_screen%"
+
+vote_started: "&b%player% &7started a vote to kick &c%player_in_vote%&7! &e%votes_required% &7votes are required.%new-line%&7Voting ends in: &e%time_left%s&7, To vote use: &a/vote <yes/no>"
+halftime_left: "&7Voting to kick &c%player% &7ends in: &e%time_left%s&7."
+player_voted_yes: "&b%player% &7voted &ayes&7! Votes: &e%votes%&7/&e%votes_required% &7Voting ends in: &e%time_left%s&7%new-line%&7To vote use: &a/vote <yes/no>"
+player_voted_no: "&b%player% &7voted &cno&7! Votes: &e%votes%&7/&e%votes_required% &7Voting ends in: &e%time_left%s&7%new-line%&7To vote use: &a/vote <yes/no>"
+
+command_usage: "&a/votekick <player>"
+command2_usage: "&a/vote <yes/no>"
+vote_yes: "yes"
+vote_no: "no"
