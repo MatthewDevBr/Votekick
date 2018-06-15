@@ -4,11 +4,13 @@ import devbr.matthew.Votekick;
 import devbr.matthew.util.Util;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.util.FileUtil;
-import org.yaml.snakeyaml.error.YAMLException;
 
 import java.io.File;
 import java.util.List;
+
+/*
+    Votekick developed by MatthewDevBr.
+ */
 
 public class FileManager {
 
@@ -34,6 +36,10 @@ public class FileManager {
         File en_yml = new File(vk.getDataFolder(), "en.yml");
         if (!en_yml.exists()) {
             vk.saveResource("en.yml", false);
+        }
+        File pt_br_yml = new File(vk.getDataFolder(), "pt_br.yml");
+        if (!pt_br_yml.exists()) {
+            vk.saveResource("pt_br.yml", false);
         }
 
         Strings.language_file = FileManager.getFromConfig("file_language");
@@ -84,7 +90,9 @@ public class FileManager {
         language_yml = YamlConfiguration.loadConfiguration(language_file);
         if (language_yml == null) {
             Util.shutdown("&cCannot load language file! File: &7'"+Strings.language_file+"'");
+            return;
         }
+        Util.print("&aLoaded language file &7'"+Strings.language_file+"'&a!");
     }
 
     public static String getFromConfig(String path) {

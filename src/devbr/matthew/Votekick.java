@@ -11,43 +11,80 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.*;
+
+/*
+    Votekick developed by MatthewDevBr.
+ */
 
 public class Votekick extends JavaPlugin {
 
-    public double plugin_version = 0.1;
+    public double plugin_version = 0.2;
     public String plugin_yml_version;
 
     public void onEnable() {
-        FileManager.startFileManager();
-        Strings.startStrings();
         Util.print("&aYour server version is &e" + ReflectionUtil.getServerVersion() + "&a!");
-        if (!isVersionSupported()) {
-            Util.shutdown(Strings.version_not_supported.replace("%version%", this.plugin_version+"")
-                    .replace("%yml_version%", this.plugin_yml_version)
-                    .replace("%server_version%", ReflectionUtil.getServerVersion()));
-            return;
-        }
         plugin_yml_version = this.getDescription().getVersion();
         double checkVersion;
         try {
             checkVersion = Double.parseDouble(plugin_yml_version);
         } catch (NumberFormatException e) {
-            Util.shutdown(Strings.invalid_version.replace("%version%", this.plugin_version+"")
+            Util.shutdown(Strings.DefaultStrings.invalid_version.getDefaultString().replace("%version%", this.plugin_version+"")
                     .replace("%yml_version%", this.plugin_yml_version)
                     .replace("%server_version%", ReflectionUtil.getServerVersion()));
             return;
         }
         if (Double.parseDouble(plugin_yml_version) != plugin_version) {
-            Util.shutdown(Strings.invalid_version.replace("%version%", this.plugin_version+"")
+            Util.shutdown(Strings.DefaultStrings.invalid_version.getDefaultString().replace("%version%", this.plugin_version+"")
                     .replace("%yml_version%", this.plugin_yml_version)
                     .replace("%server_version%", ReflectionUtil.getServerVersion()));
             return;
         }
-        Util.print("&a&m====================");
+        if (!isVersionSupported()) {
+            Util.shutdown(Strings.DefaultStrings.version_not_supported.getDefaultString().replace("%version%", this.plugin_version+"")
+                    .replace("%yml_version%", this.plugin_yml_version)
+                    .replace("%server_version%", ReflectionUtil.getServerVersion()));
+            return;
+        }
+        FileManager.startFileManager();
+        Strings.startStrings();
+        if (Strings.check_for_updates) {
+            new BukkitRunnable() {
+                @Override
+                public void run() {
+                    Util.print("&fChecking for updates...");
+                    try {
+                        URL url = new URL("https://api.spigotmc.org/legacy/update.php?resource=57723");
+                        URLConnection c = url.openConnection();
+                        double oldVersion = plugin_version;
+                        double newVersion = Double.parseDouble(new BufferedReader(new InputStreamReader(c.getInputStream())).readLine());
+                        if(newVersion > oldVersion) {
+                            Util.print("&aNew version available! &e"+newVersion+" &7(Current &e"+oldVersion+"&7)");
+                            Util.print("&aDownload it at: &ehttps://www.spigotmc.org/resources/votekick.57723/");
+                            for (Player on : Bukkit.getOnlinePlayers()) {
+                                if (on.hasPermission(Strings.permission_cant_be_kicked)) {
+                                    Util.sendMessage(on, "&aNew version available! &e"+newVersion+" &7(Current &e"+oldVersion+"&7)");
+                                    Util.sendMessage(on, "&aDownload it at: &ehttps://www.spigotmc.org/resources/votekick.57723/");
+                                }
+                            }
+                        } else {
+                            Util.print("&aYou are using the latest version!");
+                        }
+                    }
+                    catch(Exception e) {
+                        Util.print("&cCannot check for updates.");
+                    }
+                }
+            }.runTaskTimerAsynchronously(this, 2*20, 60*60*20);
+        }
+        Util.print("&a&m=========================");
         Util.print(" &c&lVotekick &fversion &e" + plugin_version + "&f.");
         Util.print(" &fDeveloped by &bMatthewDevBr&f.");
-        Util.print("&a&m====================");
+        Util.print("&a&m=========================");
     }
 
     private boolean isVersionSupported() {
@@ -206,6 +243,16 @@ public class Votekick extends JavaPlugin {
                     return true;
                 }
             }
+            if (a[0].equalsIgnoreCase("reload")) {
+                if (!p.hasPermission(Strings.permission_reload)) {
+                    Util.sendMessage(p, Strings.vote_no_permission);
+                    return true;
+                }
+                FileManager.startFileManager();
+                Strings.startStrings();
+                Util.sendMessage(p, "&aConfig file and language file reloaded! Language file: &7'"+Strings.language_file+"'");
+                return true;
+            }
             if (!vote_under_progress) {
                 Util.sendMessage(p, Strings.no_vote_under_progress);
                 return true;
@@ -215,6 +262,7 @@ public class Votekick extends JavaPlugin {
                 return true;
             }
             if (a[0].equalsIgnoreCase(Strings.yes)) {
+                votes = votes + 1;
                 String voted_yes = Strings.player_voted_yes.replace("%player%", p.getName()).replace("%player_in_vote%", toBeKickedName).replace("%votes_required%", votes_required+"")
                         .replace("%time_left%", time_left+"").replace("%votes%", votes+"");
                 String[] voted_yes_split = null;
@@ -230,7 +278,6 @@ public class Votekick extends JavaPlugin {
                         Bukkit.broadcastMessage(Strings.plugin_prefix+" "+split);
                     }
                 }
-                votes = votes + 1;
                 voted.add(p.getUniqueId());
                 return true;
             }

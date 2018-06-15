@@ -6,6 +6,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
+/*
+    Votekick developed by MatthewDevBr.
+ */
+
 public class Util {
 
     public static void print(String s) {
@@ -32,18 +36,6 @@ public class Util {
         int percentage = Strings.percentage;
         int votes = (players_online*percentage)/100;
         return votes;
-    }
-
-    public int getPing(Player p) {
-        try {
-            Class<?> craftPlayer = ReflectionUtil.getNMSClass("entity.CraftPlayer");
-            Object handle = ReflectionUtil.getMethod(craftPlayer, "getHandle").invoke(p);
-            int ping = (Integer) ReflectionUtil.getField(handle.getClass(), "ping").get(handle);
-            return ping;
-        }catch (Exception e) {
-            print("&cCannot get ping for player "+p.getName()+"!");
-            return 0;
-        }
     }
 
 }

@@ -1,0 +1,36 @@
+plugin_prefix: "&7[&cVotekick&7]"
+invalid_version: "&cVersao invalida, desligando. Plugin versao: &e%version%&c. Versao na plugin.yml: &e%yml_version%&c."
+version_not_supported: "&cEssa versao de servidor nao e suportada! Versao: &e%server_version%"
+no_permission: "&cPermissoes insuficientes."
+vote_no_permission: "&cPermissoes insuficientes."
+console: "&cVoce nao e um(a) jogador(a)."
+cooldown: "&cPor favor, espere mais &e%seconds%s &cantes de iniciar uma votacao."
+no_vote_under_progress: "&cNao ha votacao em andamento."
+vote_under_progress: "&cUma votacao ja esta em andamento."
+already_voted: "&cVoce ja votou."
+cannot_vote_self: "&cVoce nao pode abrir uma vocatao para expulsar si mesmo(a)."
+cannot_vote_player: "&cEsse(a) jogador(a) nao pode ser expulso."
+insufficient_players: "&cE necessario 4 jogadores(as) para iniciar uma votacao."
+player_kicked: "&c%player% &7foi expulso(a) por uma votacao!"
+player_not_kicked: "&c%player% &7nao pode ser expulso(a)! Votos insuficientes."
+player_not_found: "&cJogador(a) nao encontrado(a)!"
+
+player_kicked_screen:
+ - ""
+ - "&cVoce foi expulso do servidor!"
+ - "&cBem, uma votacao expulsou voce."
+ - ""
+
+# "/" is not required.
+player_kicked_commands:
+ - "kick %player% %kick_screen%"
+
+vote_started: "&b%player% &7iniciou uma votacao para expulsar &c%player_in_vote%&7! &e%votes_required% &7votos necessarios.%new-line%&7Votacao termina em: &e%time_left%s&7, Para votar use: &a/vote <sim/nao>"
+halftime_left: "&7Votacao para expulsar &c%player% &7termina em: &e%time_left%s&7."
+player_voted_yes: "&b%player% &7votou &asim&7! Votos: &e%votes%&7/&e%votes_required% &7Votacao termina em: &e%time_left%s&7%new-line%&7Para votar use: &a/vote <sim/nao>"
+player_voted_no: "&b%player% &7votou &cnao&7! Votos: &e%votes%&7/&e%votes_required% &7Votacao termina em: &e%time_left%s&7%new-line%&7Para votar use: &a/vote <sim/nao>"
+
+command_usage: "&a/votekick <jogador(a)>"
+command2_usage: "&a/vote <sim/nao>"
+vote_yes: "sim"
+vote_no: "nao"

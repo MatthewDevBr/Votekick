@@ -7,6 +7,11 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
+/*
+    Votekick developed by MatthewDevBr.
+    ReflectionUtil class by SkinsRestorer team.
+ */
+
 public class ReflectionUtil {
 
     public static final String serverVersion = null;

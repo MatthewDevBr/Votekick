@@ -6,13 +6,20 @@ permission_required: 1
 permission: "votekick.start"
 permission_cant_be_kicked: "votekick.admin"
 
+# Permission to use /vote reload - Reload config file, language file (if a vote is under progress there is no problem.)
+permission_reload: "votekick.admin.reload"
+
 # 1 = permission required, 0 = permission not required to use /vote
 vote_permission_required: 0
 vote_permission: "votekick.vote"
 
 # Vote duration in seconds
 vote_duration: 60
+# /votekick command cooldown in seconds
 vote_cooldown: 120
 
 # Percentage of players required to approve voting.
 percentage: 50
+
+# 1 = check for updates, 0 = do not check for updates - every 1 hour
+check_for_updates: 1

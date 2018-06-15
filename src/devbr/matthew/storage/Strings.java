@@ -1,9 +1,11 @@
 package devbr.matthew.storage;
 
 import devbr.matthew.Votekick;
-import devbr.matthew.util.ReflectionUtil;
 import devbr.matthew.util.Util;
-import org.bukkit.ChatColor;
+
+/*
+    Votekick developed by MatthewDevBr.
+ */
 
 public class Strings {
 
@@ -12,28 +14,41 @@ public class Strings {
     public static String plugin_prefix, language_file, invalid_version, version_not_supported, no_permission, console, cooldown, permission, permission_cant_be_kicked,
             no_vote_under_progress, vote_under_progress, already_voted, cannot_vote_self, cannot_vote_player, insufficient_players, player_kicked, player_not_kicked, player_not_found,
             vote_started, player_voted_yes, player_voted_no, command_usage, command2_usage, yes, no, player_kicked_screen, player_kicked_commands, halftime_left, vote_permission,
-            vote_no_permission;
-    public static int vote_duration = 60, vote_cooldown = 120, percentage = 50;
-    public static boolean permission_required = true, vote_permission_required = false;
+            vote_no_permission, permission_reload;
+    public static int vote_duration, vote_cooldown, percentage;
+    public static boolean permission_required, vote_permission_required, check_for_updates;
 
     public static void startStrings() {
 
-        plugin_prefix = Util.color(FileManager.getFromLanguage("plugin_prefix")); //
-        language_file = FileManager.getFromConfig("file_language"); //
-        invalid_version = Util.color(FileManager.getFromLanguage("invalid_version")); //
-        version_not_supported = Util.color(FileManager.getFromLanguage("version_not_supported")); //
-        no_permission = Util.color(FileManager.getFromLanguage("no_permission")); //
-        vote_no_permission = Util.color(FileManager.getFromLanguage("vote_no_permission")); //
-        console = Util.color(FileManager.getFromLanguage("console")); //
-        cooldown = Util.color(FileManager.getFromLanguage("cooldown")); //
-        permission = FileManager.getFromConfig("permission"); //
-        vote_permission = FileManager.getFromConfig("vote_permission"); //
-        permission_cant_be_kicked = FileManager.getFromConfig("permission_cant_be_kicked"); //
-        permission_required = Integer.parseInt(FileManager.getFromConfig("permission_required")) == 1 ? true : false; //
-        vote_permission_required = Integer.parseInt(FileManager.getFromConfig("vote_permission_required")) == 1 ? true : false; //
-        vote_cooldown = Integer.parseInt(FileManager.getFromConfig("vote_cooldown")); //
-        vote_duration = Integer.parseInt(FileManager.getFromConfig("vote_duration")); //
+        plugin_prefix = Util.color(FileManager.getFromLanguage("plugin_prefix"));
+        language_file = FileManager.getFromConfig("file_language");
+        invalid_version = Util.color(FileManager.getFromLanguage("invalid_version"));
+        version_not_supported = Util.color(FileManager.getFromLanguage("version_not_supported"));
+        no_permission = Util.color(FileManager.getFromLanguage("no_permission"));
+        vote_no_permission = Util.color(FileManager.getFromLanguage("vote_no_permission"));
+        console = Util.color(FileManager.getFromLanguage("console"));
+        cooldown = Util.color(FileManager.getFromLanguage("cooldown"));
+        permission = FileManager.getFromConfig("permission");
+        vote_permission = FileManager.getFromConfig("vote_permission");
+        permission_cant_be_kicked = FileManager.getFromConfig("permission_cant_be_kicked");
+        permission_reload = FileManager.getFromConfig("permission_reload");
+        permission_required = Integer.parseInt(FileManager.getFromConfig("permission_required")) == 1 ? true : false;
+        vote_permission_required = Integer.parseInt(FileManager.getFromConfig("vote_permission_required")) == 1 ? true : false;
+        check_for_updates = Integer.parseInt(FileManager.getFromConfig("check_for_updates")) == 1 ? true : false;
+        vote_cooldown = Integer.parseInt(FileManager.getFromConfig("vote_cooldown"));
+        if (vote_cooldown <= 0) {
+            vote_cooldown = 1;
+        }
+        vote_duration = Integer.parseInt(FileManager.getFromConfig("vote_duration"));
         percentage = Integer.parseInt(FileManager.getFromConfig("percentage"));
+        if (percentage <= 0) {
+            Util.print("&cPercentage cannot be minor or equals 0%! Changing to 50%.");
+            percentage = 50;
+        }
+        if (percentage > 100) {
+            Util.print("&aPercentage cannot be higher than 100%! Changing to 100%.");
+            percentage = 100;
+        }
         no_vote_under_progress = Util.color(FileManager.getFromLanguage("no_vote_under_progress"));
         vote_under_progress = Util.color(FileManager.getFromLanguage("vote_under_progress"));
         already_voted = Util.color(FileManager.getFromLanguage("already_voted"));
@@ -66,6 +81,7 @@ public class Strings {
         permission("votekick.start"),
         vote_permission("votekick.vote"),
         permission_cant_be_kicked("votekick.admin"),
+        permission_reload("votekick.admin.reload"),
         no_vote_under_progress("&cThere is no voting under progress."),
         vote_under_progress("&cA voting is already under progress."),
         already_voted("&cYou already voted."),
@@ -84,6 +100,7 @@ public class Strings {
         yes("yes"),
         no("no"),
 
+        check_for_updates("1"),
         permission_required("1"),
         vote_permission_required("0"),
         vote_duration("60"),
